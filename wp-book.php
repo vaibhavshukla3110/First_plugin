@@ -82,127 +82,77 @@ function run_wp_book() {
 run_wp_book();
 
 
+// Save the data in table
 
-add_action( 'init', 'wporg_book_init' );
+// function save_custom_meta_box($post_id,$post){
 
-/**
- * Register a book post type.
- */
+// 	if(!isset($_POST["meta-box-nonce"]) || wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
+// 	return $post_id;
 
-function wporg_book_init() {
-	$labels = array(
-		'name'                  => _x( 'Books', 'Post type general name', 'textdomain' ),
-		'singular_name'         => _x( 'Book', 'Post type singular name', 'textdomain' ),
-		'menu_name'             => _x( 'Books', 'Admin Menu text', 'textdomain' ),
-		'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'textdomain' ),
-		'add_new'               => __( 'Add New', 'textdomain' ),
-		'add_new_item'          => __( 'Add New Book', 'textdomain' ),
-		'new_item'              => __( 'New Book', 'textdomain' ),
-		'edit_item'             => __( 'Edit Book', 'textdomain' ),
-		'view_item'             => __( 'View Book', 'textdomain' ),
-		'all_items'             => __( 'All Books', 'textdomain' ),
-		'search_items'          => __( 'Search Books', 'textdomain' ),
-		'parent_item_colon'     => __( 'Parent Books:', 'textdomain' ),
-		'not_found'             => __( 'No books found.', 'textdomain' ),
-		'not_found_in_trash'    => __( 'No books found in Trash.', 'textdomain' ),
-		'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
-		'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
-		'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'textdomain' ),
-		'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'textdomain' ),
-		'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'textdomain' ),
-		'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'textdomain' ),
-		'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'textdomain' ),
-	);
+// 	$post_slug = "book";
 
-	$args = array(
-		'labels'             => $labels,
-		'public'             => true,
-		'publicly_queryable' => true,
-		'show_ui'            => true,
-		'show_in_menu'       => true,
-		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'book' ),
-		'capability_type'    => 'post',
-		'has_archive'        => true,
-		'hierarchical'       => false,
-		'menu_position'      => null,
-		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-	);
+// 	if( $post_slug != $post->post_type ) {
+// 		return;
+// 	}
 
-	register_post_type( 'book', $args );
-}
+// 	// if(!current_user_can("edit_post", $post_id))
+// 	// return $post_id;
+
+// 	// if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
+// 	// return $post_id;
+
+// 	$author = '';
+// 		if ( isset( $_POST['wpb-custom-author-name'] ) ) {
+// 			$author = sanitize_text_field( $_POST['wporg_author_name'] );
+// 		} else {
+// 			$author = "";
+// 		}
+
+	
+// 	$price = '';
+// 		if ( isset( $_POST['wpb-custom-price'] ) ) {
+// 			$price = sanitize_text_field( $_POST['wpb-custom-price'] );
+// 		} else {
+// 			$price = "";
+// 		}
 
 
-
-add_action( 'init', 'wporg_register_taxonomy_book_category' );
-
-
-/**
- * Register a hierarchical taxonomy book category.
- */
-
-function wporg_register_taxonomy_book_category() {
-	$labels = array(
-		'name'              => _x( 'Book Category', 'taxonomy general name' ),
-		'singular_name'     => _x( 'Book Category', 'taxonomy singular name' ),
-		'search_items'      => __( 'Search Book Category' ),
-		'all_items'         => __( 'All Book Categories' ),
-		'parent_item'       => __( 'Parent Category' ),
-		'parent_item_colon' => __( 'Parent Category:' ),
-		'edit_item'         => __( 'Edit Category' ),
-		'update_item'       => __( 'Update Category' ),
-		'add_new_item'      => __( 'Add New Category' ),
-		'new_item_name'     => __( 'New Category Name' ),
-		'menu_name'         => __( 'Book Category' ),
-	);
-	$args   = array(
-		'hierarchical'      => true, // make it hierarchical (like categories)
-		'labels'            => $labels,
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'Book Category' ),
-	);
-	register_taxonomy( 'book category', array( 'book' ), $args );
-}
+// 	$publisher = '';
+// 		if ( isset( $_POST['wpb-custom-publisher'] ) ) {
+// 			$publisher = sanitize_text_field( $_POST['wpb-custom-publisher'] );
+// 		} else {
+// 			$publisher = "";
+// 		}
 
 
+// 	$year = '';
+// 		if ( isset( $_POST['wpb-custom-year'] ) ) {
+// 			$year = sanitize_text_field( $_POST['wpb-custom-year'] );
+// 		} else {
+// 			$year = "";
+// 		}
 
-add_action( 'init', 'wporg_register_taxonomy_book_tag' );
+// 	$edition = '';
+// 		if ( isset( $_POST['wpb-custom-edition'] ) ) {
+// 			$edition = sanitize_text_field( $_POST['wpb-custom-edition'] );
+// 		} else {
+// 			$edition = "";
+// 		}
 
 
-/**
- * Register a non-hierarchical taxonomy Book Tag
- */
+// 	$url = '';
+// 		if ( isset( $_POST['wpb-custom-url'] ) ) {
+// 			$url = sanitize_text_field( $_POST['wpb-custom-url'] );
+// 		} else {
+// 			$url = "";
+// 		}
 
-function wporg_register_taxonomy_book_tag() {
-	$labels = array(
-		'name'                       => _x( 'Book Tag', 'taxonomy general name' ),
-		'singular_name'              => _x( 'Book Tag', 'taxonomy singular name' ),
-		'search_items'               => __( 'Search Book Tag' ),
-		'all_items'                  => __( 'All Book Tags' ),
-		'parent_item'                => null,
-		'parent_item_colon'          => null,
-		'edit_item'                  => __( 'Edit Tag' ),
-		'update_item'                => __( 'Update Tag' ),
-		'add_new_item'               => __( 'Add New Tag' ),
-		'new_item_name'              => __( 'New Tag Name' ),
-		'separate_items_with_commas' => __( 'Separate topics with commas' ),
-		'add_or_remove_items'        => __( 'Add or remove topics' ),
-		'choose_from_most_used'      => __( 'Choose from the most used topics' ),
-		'menu_name'                  => __( 'Book Tag' ),
-	);
-	$args   = array(
-		'hierarchical'      => false,
-		'labels'            => $labels,
-		'show_ui'           => true,
-		'show_in_rest'      => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'Book Tag' ),
-	);
-	register_taxonomy( 'book tag', array( 'book' ), $args );
-}
+// 		update_metadata( 'post', $post_id, 'author_name', $author );
+// 		update_metadata( 'post', $post_id, 'price', $price );
+// 		update_metadata( 'post', $post_id, 'publisher', $publisher );
+// 		update_metadata( 'post', $post_id, 'year', $year );
+// 		update_metadata( 'post', $post_id, 'edition', $edition );
+// 		update_metadata( 'post', $post_id, 'url', $url );
+// }
+
+// add_action("save_post", 'save_custom_meta_box');

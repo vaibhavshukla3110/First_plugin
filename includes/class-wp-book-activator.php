@@ -30,7 +30,7 @@ class Wp_Book_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+			
+	
 	}
-
 }

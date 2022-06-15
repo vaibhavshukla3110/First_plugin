@@ -157,6 +157,24 @@ class Wp_Book {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// // action hook for custom metabox
+		// $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'custom_metabox_books' );
+
+		//action hook for custom post type book
+		$this->loader->add_action( 'init', $plugin_admin , 'wporg_book_init' );
+
+		//action hook for custom hierarchical taxonomy Book Category
+		$this->loader->add_action( 'init', $plugin_admin ,'wporg_register_taxonomy_book_category' );
+
+		//action hook for custom non-hierarchical taxonomy Book Tag
+		$this->loader->add_action( 'init', $plugin_admin , 'wporg_register_taxonomy_book_tag' );
+
+		// action hook for custom metabox
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_custom_meta_box' );
+
+		//action hook save meta data
+		$this->loader->add_action("save_post", $plugin_admin ,'save_custom_meta_box', 10, 2);
+
 	}
 
 	/**
@@ -214,5 +232,6 @@ class Wp_Book {
 	public function get_version() {
 		return $this->version;
 	}
+	
 
 }
