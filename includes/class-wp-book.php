@@ -169,6 +169,9 @@ class Wp_Book {
 		//action hook for custom non-hierarchical taxonomy Book Tag
 		$this->loader->add_action( 'init', $plugin_admin , 'wporg_register_taxonomy_book_tag' );
 
+		// action hook for registering the custom table named bookmeta
+		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'pw_register_bookmeta_table' );
+
 		// action hook for custom metabox
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_custom_meta_box' );
 
