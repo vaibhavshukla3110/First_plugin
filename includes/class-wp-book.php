@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -122,6 +121,8 @@ class Wp_Book {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-book-public.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/widgets.php';
+
 		$this->loader = new Wp_Book_Loader();
 
 	}
@@ -137,7 +138,7 @@ class Wp_Book {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Wp_Book_i18n();
+		$plugin_i18n = new Wp_Book_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -157,26 +158,35 @@ class Wp_Book {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		// // action hook for custom metabox
+		// // action hook for custom metabox.
 		// $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'custom_metabox_books' );
 
-		//action hook for custom post type book
-		$this->loader->add_action( 'init', $plugin_admin , 'wporg_book_init' );
+		// action hook for custom post type book.
+		$this->loader->add_action( 'init', $plugin_admin, 'wporg_book_init' );
 
-		//action hook for custom hierarchical taxonomy Book Category
-		$this->loader->add_action( 'init', $plugin_admin ,'wporg_register_taxonomy_book_category' );
+		// action hook for custom hierarchical taxonomy Book Category.
+		$this->loader->add_action( 'init', $plugin_admin, 'wporg_register_taxonomy_book_category' );
 
-		//action hook for custom non-hierarchical taxonomy Book Tag
-		$this->loader->add_action( 'init', $plugin_admin , 'wporg_register_taxonomy_book_tag' );
+		// action hook for custom non-hierarchical taxonomy Book Tag.
+		$this->loader->add_action( 'init', $plugin_admin, 'wporg_register_taxonomy_book_tag' );
 
-		// action hook for registering the custom table named bookmeta
+		// action hook for registering the custom table named bookmeta.
 		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'pw_register_bookmeta_table' );
 
-		// action hook for custom metabox
+		// action hook for custom metabox.
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_custom_meta_box' );
 
-		//action hook save meta data
-		$this->loader->add_action("save_post", $plugin_admin ,'save_custom_meta_box', 10, 2);
+		// action hook save meta data.
+		$this->loader->add_action( 'save_post', $plugin_admin, 'save_custom_meta_box', 10, 2 );
+
+		// action hook for admin_menu.
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'book_options_page' );
+
+		// action hook to register the settings for book.
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_book_settings' );
+
+		// action hook to display widget on dashboard to display top 5 book categories.
+		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'custom_dashboard_widget' );
 
 	}
 
@@ -193,6 +203,20 @@ class Wp_Book {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		// action hook to display custom widget which shows books of selected category.
+		add_action( 'widgets_init', 'wp_book_widget_init' );
+
+		// Create Shortcode named book to show information about book.
+		add_shortcode( 'book', array( $plugin_public, 'load_book_content' ) );
+
+		//action hook to make international loaclize.
+		add_action(
+			'plugins_loaded',
+			function () {
+				load_plugin_textdomain( 'wpb' , false, dirname(plugin_basename(__FILE__)).'/languages/');
+			}
+		);
 
 	}
 
@@ -235,6 +259,6 @@ class Wp_Book {
 	public function get_version() {
 		return $this->version;
 	}
-	
+
 
 }

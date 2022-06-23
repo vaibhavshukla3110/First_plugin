@@ -1,3 +1,7 @@
+/**
+ * Javascript file
+ */
+
 (function( $ ) {
 	'use strict';
 

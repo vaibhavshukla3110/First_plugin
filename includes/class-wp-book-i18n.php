@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,7 +23,7 @@
  * @subpackage Wp_Book/includes
  * @author     Vaibhav <vaibhav.shukla@hbwsl.com>
  */
-class Wp_Book_i18n {
+class Wp_Book_I18n {
 
 
 	/**
