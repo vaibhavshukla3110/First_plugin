@@ -111,7 +111,7 @@ class Wp_Book_Public {
 			array(
 				'id'          => 0,
 				'author_name' => '',
-				'publihser'   => '',
+				'publisher'   => '',
 				'year'        => '',
 				'tag'         => '',
 				'category'    => '',
@@ -122,7 +122,7 @@ class Wp_Book_Public {
 			$atts
 		);
 
-		if ( $attributes['category'] !== '' || $attributes['tag'] !== '' ) {
+		if ( '' !== $attributes['category'] || '' !== $attributes['tag'] ) {
 			$args = array(
 				'p'              => $attributes['id'],
 				'post_type'      => 'book',
@@ -147,7 +147,7 @@ class Wp_Book_Public {
 				),
 			);
 
-		} else if ( $attributes['author_name'] != '' || $attributes['publisher'] != '' || $attributes['year'] != '' || $attributes['edition'] != '' || $attributes['url'] != '' || $attributes['price'] != '' ) {
+		} elseif ( '' !== $attributes['author_name'] || '' !== $attributes['publisher'] || '' !== $attributes['year'] || '' !== $attributes['edition'] || '' !== $attributes['url'] || '' !== $attributes['price'] ) {
 			$args = array(
 				'p'              => $attributes['id'],
 				'post_type'      => 'book',
@@ -199,29 +199,27 @@ class Wp_Book_Public {
 		$content = '';
 
 		$query = new WP_Query( $args );
-		// echo "<pre>";
-		// print_r($query);
-		// exit();
+
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$currency       = get_option( 'book_currency' );
 				$book_metadata  = get_metadata( 'book', get_the_ID() );
 				$currency_in_no = get_metadata( 'book', get_the_ID(), 'price', true );
-				if ( $book_metadata['publisher'][0] == '' || $currency_in_no == '' || $book_metadata['year'][0] == '' || $book_metadata['edition'][0] == '' || $book_metadata['url'][0] == '' ) {
+				if ( '' === $book_metadata['publisher'][0] || '' === $currency_in_no || '' === $book_metadata['year'][0] || '' === $book_metadata['edition'][0] || '' === $book_metadata['url'][0] ) {
 					$book_metadata['publisher'][0] = 'N.A.';
 					$price                         = 'N.A.';
 					$book_metadata['year'][0]      = 'N.A.';
 					$book_metadata['edition'][0]   = 'N.A.';
 					$book_metadata['url'][0]       = '';
 				} else {
-					if ( $currency == 'US Dollar' ) {
+					if ( 'US Dollar' === $currency ) {
 						$price = '$' . (int) $currency_in_no * 0.013;
 					}
-					if ( $currency == 'Indian Rupees' ) {
+					if ( 'Indian Rupees' === $currency ) {
 						$price = '&#8377;' . (int) $currency_in_no;
 					}
-					if ( $currency == 'UK Pound Sterling' ) {
+					if ( 'UK Pound Sterling' === $currency ) {
 						$price = '&#163;' . (int) $currency_in_no * 0.010;
 					}
 				}

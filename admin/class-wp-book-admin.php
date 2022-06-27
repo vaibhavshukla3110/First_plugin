@@ -153,17 +153,17 @@ class Wp_Book_Admin {
 	 */
 	public function wporg_register_taxonomy_book_category() {
 		$labels = array(
-			'name'              => _x( 'Book Category', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Book Category', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search Book Category' ),
-			'all_items'         => __( 'All Book Categories' ),
-			'parent_item'       => __( 'Parent Category' ),
-			'parent_item_colon' => __( 'Parent Category:' ),
-			'edit_item'         => __( 'Edit Category' ),
-			'update_item'       => __( 'Update Category' ),
-			'add_new_item'      => __( 'Add New Category' ),
-			'new_item_name'     => __( 'New Category Name' ),
-			'menu_name'         => __( 'Book Category' ),
+			'name'              => _x( 'Book Category', 'taxonomy general name', 'wp-book' ),
+			'singular_name'     => _x( 'Book Category', 'taxonomy singular name', 'wp-book' ),
+			'search_items'      => __( 'Search Book Category', 'wp-book' ),
+			'all_items'         => __( 'All Book Categories', 'wp-book' ),
+			'parent_item'       => __( 'Parent Category', 'wp-book' ),
+			'parent_item_colon' => __( 'Parent Category:', 'wp-book' ),
+			'edit_item'         => __( 'Edit Category', 'wp-book' ),
+			'update_item'       => __( 'Update Category', 'wp-book' ),
+			'add_new_item'      => __( 'Add New Category', 'wp-book' ),
+			'new_item_name'     => __( 'New Category Name', 'wp-book' ),
+			'menu_name'         => __( 'Book Category', 'wp-book' ),
 		);
 		$args   = array(
 			'hierarchical'      => true,
@@ -182,20 +182,20 @@ class Wp_Book_Admin {
 	 */
 	public function wporg_register_taxonomy_book_tag() {
 		$labels = array(
-			'name'                       => _x( 'Book Tag', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Book Tag', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Book Tag' ),
-			'all_items'                  => __( 'All Book Tags' ),
+			'name'                       => _x( 'Book Tag', 'taxonomy general name', 'wp-book' ),
+			'singular_name'              => _x( 'Book Tag', 'taxonomy singular name', 'wp-book' ),
+			'search_items'               => __( 'Search Book Tag', 'wp-book' ),
+			'all_items'                  => __( 'All Book Tags', 'wp-book' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Tag' ),
-			'update_item'                => __( 'Update Tag' ),
-			'add_new_item'               => __( 'Add New Tag' ),
-			'new_item_name'              => __( 'New Tag Name' ),
-			'separate_items_with_commas' => __( 'Separate topics with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove topics' ),
-			'choose_from_most_used'      => __( 'Choose from the most used topics' ),
-			'menu_name'                  => __( 'Book Tag' ),
+			'edit_item'                  => __( 'Edit Tag', 'wp-book' ),
+			'update_item'                => __( 'Update Tag', 'wp-book' ),
+			'add_new_item'               => __( 'Add New Tag', 'wp-book' ),
+			'new_item_name'              => __( 'New Tag Name', 'wp-book' ),
+			'separate_items_with_commas' => __( 'Separate topics with commas', 'wp-book' ),
+			'add_or_remove_items'        => __( 'Add or remove topics', 'wp-book' ),
+			'choose_from_most_used'      => __( 'Choose from the most used topics', 'wp-book' ),
+			'menu_name'                  => __( 'Book Tag', 'wp-book' ),
 		);
 		$args   = array(
 			'hierarchical'      => false,
@@ -233,6 +233,7 @@ class Wp_Book_Admin {
 	public function custom_meta_box_markup( $post ) {
 
 		$get_book_metadata = get_metadata( 'book', $post->ID ); // Retrieves the value of a metadata field for the specified object type and ID.
+
 		if ( count( $get_book_metadata ) > 0 ) {
 			$author    = $get_book_metadata['author_name'][0];
 			$price     = $get_book_metadata['price'][0];
@@ -249,6 +250,7 @@ class Wp_Book_Admin {
 			$url       = '';
 		}
 
+		// The nonce field is used to validate that the contents of the form came from the location on the current site and not somewhere else.
 		wp_nonce_field( plugin_basename( __FILE__ ), 'meta-box-nonce' );
 
 		?>
@@ -285,7 +287,7 @@ class Wp_Book_Admin {
 	}
 
 	/**
-	 * Stores all metadata of custom post type to custom table called wp_bookmeta
+	 * Stores all metadata of custom post type to custom table called wp_bookmeta and wp_book
 	 *
 	 * @since    1.0.0
 	 * @param      integer $post_id       Contains Post ID.
@@ -293,7 +295,7 @@ class Wp_Book_Admin {
 	 */
 	public function save_custom_meta_box( $post_id, $post ) {
 
-		if ( ! isset( $_POST['meta-box-nonce'] ) || wp_verify_nonce( $_POST['meta-box-nonce'], basename( __FILE__ ) ) ) {
+		if ( null === ( wp_unslash( isset( $_POST['meta-box-nonce'] ) ) ) || wp_verify_nonce( isset( $_POST['meta-box-nonce'] ), basename( __FILE__ ) ) ) {
 			return $post_id;
 		}
 
@@ -305,47 +307,47 @@ class Wp_Book_Admin {
 
 		$author = '';
 		if ( isset( $_POST['wpb-custom-author-name'] ) ) {
-			$author = sanitize_text_field( $_POST['wpb-custom-author-name'] );
+			$author = sanitize_text_field( wp_unslash( $_POST['wpb-custom-author-name'] ) );
 		} else {
 			$author = '';
 		}
 
 		$price = '';
 		if ( isset( $_POST['wpb-custom-price'] ) ) {
-			$price = sanitize_text_field( $_POST['wpb-custom-price'] );
+			$price = sanitize_text_field( wp_unslash( $_POST['wpb-custom-price'] ) );
 		} else {
 			$price = '';
 		}
 
 		$publisher = '';
 		if ( isset( $_POST['wpb-custom-publisher'] ) ) {
-			$publisher = sanitize_text_field( $_POST['wpb-custom-publisher'] );
+			$publisher = sanitize_text_field( wp_unslash( $_POST['wpb-custom-publisher'] ) );
 		} else {
 			$publisher = '';
 		}
 
 		$year = '';
 		if ( isset( $_POST['wpb-custom-year'] ) ) {
-			$year = sanitize_text_field( $_POST['wpb-custom-year'] );
+			$year = sanitize_text_field( wp_unslash( $_POST['wpb-custom-year'] ) );
 		} else {
 			$year = '';
 		}
 
 		$edition = '';
 		if ( isset( $_POST['wpb-custom-edition'] ) ) {
-			$edition = sanitize_text_field( $_POST['wpb-custom-edition'] );
+			$edition = sanitize_text_field( wp_unslash( $_POST['wpb-custom-edition'] ) );
 		} else {
 			$edition = '';
 		}
 
 		$url = '';
 		if ( isset( $_POST['wpb-custom-url'] ) ) {
-			$url = sanitize_text_field( $_POST['wpb-custom-url'] );
+			$url = sanitize_text_field( wp_unslash( $_POST['wpb-custom-url'] ) );
 		} else {
 			$url = '';
 		}
 
-		update_metadata( 'post', $post_id, 'author_name', $author );
+		update_metadata( 'post', $post_id, 'author_name', $author ); // Updates metadata for the specified object.
 		update_metadata( 'post', $post_id, 'price', $price );
 		update_metadata( 'post', $post_id, 'publisher', $publisher );
 		update_metadata( 'post', $post_id, 'year', $year );
@@ -364,7 +366,7 @@ class Wp_Book_Admin {
 	 * Create custom menu
 	 */
 	public function book_options_page() {
-		add_menu_page( 'Books-Menu', 'Books-Menu', 'manage_options', 'books-menu', array( $this, 'books_dashboard_markup' ), 'dashicons-book-alt', 78 );
+		add_menu_page( 'Books-Menu', 'Books-Menu', 'manage_options', 'books-menu', array( $this, 'books_dashboard_markup' ), 'dashicons-book-alt', 78 ); // adds a top-level menu page.
 	}
 
 	/**
@@ -373,15 +375,6 @@ class Wp_Book_Admin {
 	public function books_dashboard_markup() {
 		?>
 		<div class="wrap">
-			<?php
-			if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] === true ) {
-				?>
-				<div class="notice notice-success">
-					<p>Save Successful</p>
-				</div>
-				<?php
-			}
-			?>
 			<h2>Book Settings</h2>
 
 			<form method="post" action="options.php">
@@ -401,7 +394,7 @@ class Wp_Book_Admin {
 						</tr>
 						<tr>
 							<th scope="row"><label for="book_no_pages">No. of books (per page)</label></th>
-							<td><input type="text" class="regular-text" name="book_no_pages" id="book_no_pages" placeholder="No. of books" value="<?php echo get_option( 'book_no_pages' ); ?>"></td>
+							<td><input type="text" class="regular-text" name="book_no_pages" id="book_no_pages" placeholder="No. of books" value="<?php echo esc_attr( get_option( 'book_no_pages' ) ); ?>"></td>
 						</tr>
 						<tr>
 							<td><input type="submit" value="Save Settings" class="button-primary"></td>
@@ -433,19 +426,22 @@ class Wp_Book_Admin {
 	 */
 	public function custom_dashboard() {
 		global $wpdb;
-		$get_term_ids   = $wpdb->get_col( "SELECT term_id FROM `wp_term_taxonomy` WHERE taxonomy = 'book category' ORDER BY count DESC LIMIT 5" );
+		$get_term_ids   = $wpdb->get_col( "SELECT term_id FROM `wp_term_taxonomy` WHERE taxonomy = 'book category' ORDER BY count DESC LIMIT 5" );// db call ok; no-cache ok.
 		$top_terms_name = array();
 		$top_terms_slug = array();
 		foreach ( $get_term_ids as $id ) {
-			$get_term = $wpdb->get_row( "SELECT name, slug FROM wp_terms WHERE term_id = $id", 'ARRAY_A' );
-			array_push( $top_terms_name, $get_term['name'] );
-			array_push( $top_terms_slug, $get_term['slug'] );
+			$get_term = $wpdb->get_row( $wpdb->prepare( 'SELECT name, slug FROM wp_terms WHERE term_id = %d', $id ) );// db call ok; no-cache ok.
+			array_push( $top_terms_name, $get_term->name );
+			array_push( $top_terms_slug, $get_term->slug );
 		}
 		?>
 		<ol>
 			<?php
-			for ( $i = 0; $i < count( $top_terms_name ); $i++ ) {
-				echo "<li style='font-size:15px;'> <a target='_blank' href=" . get_site_url() . "/book-category/$top_terms_slug[$i]>$top_terms_name[$i]</li>";
+			$use_count = count( $top_terms_name );
+			for ( $i = 0; $i < $use_count; $i++ ) {
+				?>
+				<li style='font-size:15px;'> <a target='_blank' href=" <?php echo esc_url( get_site_url() ); ?>/book-category/<?php echo esc_attr( $top_terms_slug[ $i ] ); ?>"><?php echo esc_attr( $top_terms_name[ $i ] ); ?></li>
+				<?php
 			}
 			?>
 		</ol>

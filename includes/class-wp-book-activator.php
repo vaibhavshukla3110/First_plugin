@@ -31,7 +31,9 @@ class Wp_Book_Activator {
 	public function activate() {
 
 		global $wpdb;
-		if ( $wpdb->get_var( "SHOW tables like '" . $this->wpb_bookmeta() . "'" ) !== $this->wpb_bookmeta() ) {
+
+		// the next if statement is checking whether any table with our table name is already present in the database or not, if not then create a table with table name wp_bookmeta in database.
+		if ( $wpdb->get_var( $wpdb->prepare( "SHOW tables like '" . $this->wpb_bookmeta() . "'" ) !== $this->wpb_bookmeta() ) ) {
 
 			// dynamic generate table.
 			$table_query = 'CREATE TABLE `' . $this->wpb_bookmeta() . "` (  
@@ -43,13 +45,16 @@ class Wp_Book_Activator {
 				KEY `book_id` (`book_id`),  
 				KEY `meta_key` (`meta_key`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
+			// Require_once keyword is used to embed PHP code from another file. If the file is not found, a fatal error is thrown and the program stops. If the file was already included previously, this statement will not include it again.
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+			// modifies the data based on specified SQL statements.
 			dbDelta( $table_query );
 		}
 
 	}
 	/**
-	 * funtion to get correct prefix
+	 * Funtion to get correct prefix
 	 */
 	public function wpb_bookmeta() {
 		global $wpdb;

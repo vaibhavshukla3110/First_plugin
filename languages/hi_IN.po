@@ -1,0 +1,254 @@
+# Blank WordPress Pot
+# Copyright 2014 ...
+# This file is distributed under the GNU General Public License v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Blank WordPress Pot v1.0.0\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2022-06-24 09:44+0530\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Your Team <translations@example.com>\n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-wp-book-admin.php:104
+msgctxt "Post type general name"
+msgid "Books"
+msgstr "पुस्तकें"
+
+#: admin/class-wp-book-admin.php:105
+msgctxt "Post type singular name"
+msgid "Book"
+msgstr "किताब"
+
+#: admin/class-wp-book-admin.php:106
+msgctxt "Admin Menu text"
+msgid "Books"
+msgstr "पुस्तकें"
+
+#: admin/class-wp-book-admin.php:107
+msgctxt "Add New on Toolbar"
+msgid "Book"
+msgstr "किताब"
+
+#: admin/class-wp-book-admin.php:108
+msgid "Add New"
+msgstr "नया जोड़ें"
+
+#: admin/class-wp-book-admin.php:109
+msgid "Add New Book"
+msgstr "नई किताब जोड़ें"
+
+#: admin/class-wp-book-admin.php:110
+msgid "New Book"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:111
+msgid "Edit Book"
+msgstr "पुस्तक संपादित करें"
+
+#: admin/class-wp-book-admin.php:112
+msgid "View Book"
+msgstr "किताब देखें"
+
+#: admin/class-wp-book-admin.php:113
+msgid "All Books"
+msgstr "सभी पुस्तकें"
+
+#: admin/class-wp-book-admin.php:114
+msgid "Search Books"
+msgstr "पुस्तकें खोजें"
+
+#: admin/class-wp-book-admin.php:115
+msgid "Parent Books:"
+msgstr "सभी पुस्तकें:"
+
+#: admin/class-wp-book-admin.php:116
+msgid "No books found."
+msgstr "कोई किताब नहीं मिली।"
+
+#: admin/class-wp-book-admin.php:117
+msgid "No books found in Trash."
+msgstr "सभी पुस्तकें."
+
+#: admin/class-wp-book-admin.php:118
+msgctxt ""
+"Overrides the “Featured Image” phrase for this post type. Added in 4.3"
+msgid "Book Cover Image"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:119
+msgctxt ""
+"Overrides the “Set featured image” phrase for this post type. Added in 4.3"
+msgid "Set cover image"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:120
+msgctxt ""
+"Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
+msgid "Remove cover image"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:121
+msgctxt ""
+"Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
+msgid "Use as cover image"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:122
+msgctxt ""
+"The post type archive label used in nav menus. Default “Post Archives”. "
+"Added in 4.4"
+msgid "Book archives"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:123
+msgctxt ""
+"Overrides the “Insert into post”/”Insert into page” phrase (used when "
+"inserting media into a post). Added in 4.4"
+msgid "Insert into book"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:124
+msgctxt ""
+"Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used "
+"when viewing media attached to a post). Added in 4.4"
+msgid "Uploaded to this book"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:125
+msgctxt ""
+"Screen reader text for the filter links heading on the post type listing "
+"screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4"
+msgid "Filter books list"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:126
+msgctxt ""
+"Screen reader text for the pagination heading on the post type listing "
+"screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4"
+msgid "Books list navigation"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:127
+msgctxt ""
+"Screen reader text for the items list heading on the post type listing "
+"screen. Default “Posts list”/”Pages list”. Added in 4.4"
+msgid "Books list"
+msgstr ""
+
+#: admin/class-wp-book-admin.php:156
+msgctxt "taxonomy general name"
+msgid "Book Category"
+msgstr "पुस्तक संपादित करें"
+
+#: admin/class-wp-book-admin.php:157
+msgctxt "taxonomy singular name"
+msgid "Book Category"
+msgstr "पुस्तक संपादित करें"
+
+#: admin/class-wp-book-admin.php:158
+msgid "Search Book Category"
+msgstr "पुस्तकें खोजें"
+
+#: admin/class-wp-book-admin.php:159
+msgid "All Book Categories"
+msgstr "सभी पुस्तकें"
+
+#: admin/class-wp-book-admin.php:160
+msgid "Parent Category"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:161
+msgid "Parent Category:"
+msgstr "नई पुस्तक:"
+
+#: admin/class-wp-book-admin.php:162
+msgid "Edit Category"
+msgstr "पुस्तक संपादित करें"
+
+#: admin/class-wp-book-admin.php:163
+msgid "Update Category"
+msgstr "अद्यतन श्रेणी"
+
+#: admin/class-wp-book-admin.php:164
+msgid "Add New Category"
+msgstr "नई किताब जोड़ें"
+
+#: admin/class-wp-book-admin.php:165
+msgid "New Category Name"
+msgstr "नई किताब जोड़ें"
+
+#: admin/class-wp-book-admin.php:166
+msgid "Book Category"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:185
+msgctxt "taxonomy general name"
+msgid "Book Tag"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:186
+msgctxt "taxonomy singular name"
+msgid "Book Tag"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:187
+msgid "Search Book Tag"
+msgstr "पुस्तकें खोजें"
+
+#: admin/class-wp-book-admin.php:188
+msgid "All Book Tags"
+msgstr "सभी पुस्तकें"
+
+#: admin/class-wp-book-admin.php:191
+msgid "Edit Tag"
+msgstr "पुस्तक संपादित करें"
+
+#: admin/class-wp-book-admin.php:192
+msgid "Update Tag"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:193
+msgid "Add New Tag"
+msgstr "नई किताब जोड़ें"
+
+#: admin/class-wp-book-admin.php:194
+msgid "New Tag Name"
+msgstr "नई किताब जोड़ें"
+
+#: admin/class-wp-book-admin.php:195
+msgid "Separate topics with commas"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:196
+msgid "Add or remove topics"
+msgstr "नया जोड़ें"
+
+#: admin/class-wp-book-admin.php:197
+msgid "Choose from the most used topics"
+msgstr "नई पुस्तक"
+
+#: admin/class-wp-book-admin.php:198
+msgid "Book Tag"
+msgstr "नई पुस्तक"
+
+#: widgets/widgets.php:52
+msgid "Text:"
+msgstr "नई पुस्तक:"
+
+#: widgets/widgets.php:60
+msgid "Select"
+msgstr "नई पुस्तक"

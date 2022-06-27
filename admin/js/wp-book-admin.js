@@ -1,5 +1,7 @@
 /**
  * Javascript file
+ *
+ * @package category
  */
 
 (function( $ ) {

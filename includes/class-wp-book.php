@@ -121,7 +121,7 @@ class Wp_Book {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-book-public.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/widgets.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-wp-custom-block-widget.php';
 
 		$this->loader = new Wp_Book_Loader();
 
@@ -157,9 +157,6 @@ class Wp_Book {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
-		// // action hook for custom metabox.
-		// $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'custom_metabox_books' );
 
 		// action hook for custom post type book.
 		$this->loader->add_action( 'init', $plugin_admin, 'wporg_book_init' );
@@ -210,11 +207,11 @@ class Wp_Book {
 		// Create Shortcode named book to show information about book.
 		add_shortcode( 'book', array( $plugin_public, 'load_book_content' ) );
 
-		//action hook to make international loaclize.
+		// action hook to make international loaclize.
 		add_action(
 			'plugins_loaded',
 			function () {
-				load_plugin_textdomain( 'wpb' , false, dirname(plugin_basename(__FILE__)).'/languages/');
+				load_plugin_textdomain( 'wpb', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 			}
 		);
 
